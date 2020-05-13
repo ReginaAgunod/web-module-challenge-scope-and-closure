@@ -28,21 +28,33 @@ function processFirstItem(stringList, callback) {
  * 
  * 1. What is the difference between counter1 and counter2?
  * 
+ *  1 creates the count variable while in scope and 2 is set to global count variable
+ * 
  * 2. Which of the two uses a closure? How can you tell?
+ * 
+ *  1 because it calls a function that's nesting another function inside of it.
  * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
  *
+ *  1: You can asign the function to a variable while running different functions at once. (let count isn't touched)
+ *  2: Used when there are more than one fuction needing to access the count variable. 
 */
 
 // counter1 code
+
 function counterMaker() {
   let count = 0;
+
   return function counter() {
-   return count++;
+    return count++;
   }
+
 }
 
 const counter1 = counterMaker();
+
+console.log(counter1());
+console.log(counter1());
 
 // counter2 code
 let count = 0;
@@ -51,16 +63,19 @@ function counter2() {
   return count++;
 }
 
-
 /* Task 2: inning() 
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
+function inning(){
 
-    /*Code Here*/
+  return Math.floor(Math.random() * Math.floor(2));
 
 }
+
+console.log("Task 2:", inning())
+
+
 
 /* Task 3: finalScore()
 
@@ -76,11 +91,23 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
+function finalScore(inningCB, inningsNum){
 
-  /*Code Here*/
+  let homeScore = 7;
+  let awayScore = 2;
 
+  for (let i = 2; i < inningsNum; i++) {
+    homeScore = homeScore + inningCB();
+    awayScore = awayScore + inningCB();
+  }
+
+  return {
+    Home: homeScore,
+    Away: awayScore
+  }
 }
+
+console.log("Task 3:", finalScore(inning, 9));
 
 /* Task 4: 
 
@@ -103,8 +130,53 @@ and returns the score at each pont in the game, like so:
 
 Final Score: 6 - 10 */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(numOfPoints, numOfInnings) {
+
+  let homeScore = 0;
+  let awayScore = 0;
+
+    for (var i = 1; i <= numOfInnings; i++) {
+    let inning = i;
+    if (inning === 1) {
+
+    homeScore += Math.round(Math.random(numOfPoints));
+    awayScore += Math.round(Math.random(numOfPoints));
+
+    console.log(`${inning}st inning: ${homeScore} - ${awayScore}`);
+
+    } else if (inning === 2) {
+
+      homeScore += Math.round(Math.random(numOfPoints));
+      awayScore += Math.round(Math.random(numOfPoints));
+
+      console.log(`${inning}nd inning: ${homeScore} - ${awayScore}`);
+
+    } else if (inning === 3) {
+
+      homeScore += Math.round(Math.random(numOfPoints));
+      awayScore += Math.round(Math.random(numOfPoints));
+
+      console.log(`${inning}rd inning: ${homeScore} - ${awayScore}`);
+
+
+    } else if (inning > 3 && inning !== numOfInnings) {
+
+      homeScore += Math.round(Math.random(numOfPoints));
+      awayScore += Math.round(Math.random(numOfPoints));
+
+      console.log(`${inning}th inning: ${homeScore} - ${awayScore}`);
+
+    } else if (inning === numOfInnings) {
+
+      homeScore += Math.round(Math.random(numOfPoints));
+      awayScore += Math.round(Math.random(numOfPoints));
+
+      console.log(`${inning}th inning: ${homeScore} - ${awayScore}`);
+      console.log(`Final Score: ${homeScore} - ${awayScore}`);
+
+
+    }
+  }
 }
 
-
+scoreboard(inning(0, 2), 9);
