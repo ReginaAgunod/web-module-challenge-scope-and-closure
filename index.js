@@ -16,7 +16,7 @@
  * str`, should return 'foofoo'.
  */
 function processFirstItem(stringList, callback) {
-  return callback(stringList[0])
+  return callback(stringList[0]);
 }
 
 // ⭐️ Example Challenge END ⭐️
@@ -48,7 +48,9 @@ function processFirstItem(stringList, callback) {
 function counterMaker() {
   let count = 0;
 
-  return function counter() { return count++; }
+  return function counter() {
+    return count++;
+  };
 }
 
 const counter1 = counterMaker();
@@ -59,16 +61,20 @@ console.log(counter1());
 // counter2 code
 let count = 0;
 
-function counter2() { return count++; }
+function counter2() {
+  return count++;
+}
 
 /* Task 2: inning()
 
 Write a function called `inning` that generates a random number of points that a
 team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning() { return Math.floor(Math.random() * Math.floor(2)); }
+function inning() {
+  return Math.floor(Math.random() * Math.floor(2));
+}
 
-console.log("Task 2:", inning())
+console.log("Task 2:", inning());
 
 /* Task 3: finalScore()
 
@@ -87,7 +93,6 @@ finalScore(inning, 9) might return:
 */
 
 function finalScore(inningCB, inningsNum) {
-
   let homeScore = 7;
   let awayScore = 2;
 
@@ -96,7 +101,7 @@ function finalScore(inningCB, inningsNum) {
     awayScore = awayScore + inningCB();
   }
 
-  return { Home: homeScore, Away: awayScore }
+  return { Home: homeScore, Away: awayScore };
 }
 
 console.log("Task 3:", finalScore(inning, 9));
@@ -123,42 +128,32 @@ and returns the score at each pont in the game, like so:
 Final Score: 6 - 10 */
 
 function scoreboard(numOfPoints, numOfInnings) {
-
   let homeScore = 0;
   let awayScore = 0;
 
   for (var i = 1; i <= numOfInnings; i++) {
     let inning = i;
     if (inning === 1) {
-
       homeScore += Math.round(Math.random(numOfPoints));
       awayScore += Math.round(Math.random(numOfPoints));
 
       console.log(`${inning}st inning: ${homeScore} - ${awayScore}`);
-
     } else if (inning === 2) {
-
       homeScore += Math.round(Math.random(numOfPoints));
       awayScore += Math.round(Math.random(numOfPoints));
 
       console.log(`${inning}nd inning: ${homeScore} - ${awayScore}`);
-
     } else if (inning === 3) {
-
       homeScore += Math.round(Math.random(numOfPoints));
       awayScore += Math.round(Math.random(numOfPoints));
 
       console.log(`${inning}rd inning: ${homeScore} - ${awayScore}`);
-
     } else if (inning > 3 && inning !== numOfInnings) {
-
       homeScore += Math.round(Math.random(numOfPoints));
       awayScore += Math.round(Math.random(numOfPoints));
 
       console.log(`${inning}th inning: ${homeScore} - ${awayScore}`);
-
     } else if (inning === numOfInnings) {
-
       homeScore += Math.round(Math.random(numOfPoints));
       awayScore += Math.round(Math.random(numOfPoints));
 
