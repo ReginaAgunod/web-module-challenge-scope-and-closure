@@ -2,43 +2,46 @@
 
 /**
  * ### Challenge `processFirstItem`
- * 
+ *
  * @instructions
  * Implement a higher-order function called `processFirstItem`.
  * It takes two arguments:
  * @param stringList an array of strings.
  * @param callback function that takes a string as its argument.
- * @returns the result of invoking `callback` with the FIRST element in `stringList`.
- * 
+ * @returns the result of invoking `callback` with the FIRST element in
+ *     `stringList`.
+ *
  * Example of usage of this higher-order function:
- * Invoking `processFirstItem` passing `['foo', 'bar']` and `(str) => str + str`,
- * should return 'foofoo'.
-*/
+ * Invoking `processFirstItem` passing `['foo', 'bar']` and `(str) => str +
+ * str`, should return 'foofoo'.
+ */
 function processFirstItem(stringList, callback) {
-  return callback(stringList[0])
+  return callback(stringList[0]);
 }
 
 // ⭐️ Example Challenge END ⭐️
-
 
 ///// M V P ///////
 
 /* Task 1: `counterMaker`
  * Study the code for counter1 and counter2. Answer the questions below.
- * 
- * 1. What is the difference between counter1 and counter2?
- * 
- *  1 creates the count variable while in scope and 2 is set to global count variable
- * 
- * 2. Which of the two uses a closure? How can you tell?
- * 
- *  1 because it calls a function that's nesting another function inside of it.
- * 
- * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
  *
- *  1: You can asign the function to a variable while running different functions at once. (let count isn't touched)
- *  2: Used when there are more than one fuction needing to access the count variable. 
-*/
+ * 1. What is the difference between counter1 and counter2?
+ *
+ *  1 creates the count variable while in scope and 2 is set to global count
+ * variable
+ *
+ * 2. Which of the two uses a closure? How can you tell?
+ *
+ *  1 because it calls a function that's nesting another function inside of it.
+ *
+ * 3. In what scenario would the counter1 code be preferable? In what scenario
+ * would counter2 be better?
+ *
+ *  1: You can asign the function to a variable while running different
+ * functions at once. (let count isn't touched) 2: Used when there are more than
+ * one fuction needing to access the count variable.
+ */
 
 // counter1 code
 
@@ -47,8 +50,7 @@ function counterMaker() {
 
   return function counter() {
     return count++;
-  }
-
+  };
 }
 
 const counter1 = counterMaker();
@@ -63,36 +65,34 @@ function counter2() {
   return count++;
 }
 
-/* Task 2: inning() 
+/* Task 2: inning()
 
-Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
+Write a function called `inning` that generates a random number of points that a
+team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(){
-
+function inning() {
   return Math.floor(Math.random() * Math.floor(2));
-
 }
 
-console.log("Task 2:", inning())
-
-
+console.log("Task 2:", inning());
 
 /* Task 3: finalScore()
 
-Write a higher order function called `finalScore` that accepts the callback function `inning` (from above) and a number of innings and and returns the final score of the game in the form of an object.
+Write a higher order function called `finalScore` that accepts the callback
+function `inning` (from above) and a number of innings and and returns the final
+score of the game in the form of an object.
 
-For example, 
+For example,
 
-finalScore(inning, 9) might return: 
+finalScore(inning, 9) might return:
 {
   "Home": 11,
   "Away": 5,
 }
 
-*/ 
+*/
 
-function finalScore(inningCB, inningsNum){
-
+function finalScore(inningCB, inningsNum) {
   let homeScore = 7;
   let awayScore = 2;
 
@@ -101,17 +101,14 @@ function finalScore(inningCB, inningsNum){
     awayScore = awayScore + inningCB();
   }
 
-  return {
-    Home: homeScore,
-    Away: awayScore
-  }
+  return { Home: homeScore, Away: awayScore };
 }
 
 console.log("Task 3:", finalScore(inning, 9));
 
-/* Task 4: 
+/* Task 4:
 
-Create a function called `scoreboard` that accepts the following parameters: 
+Create a function called `scoreboard` that accepts the following parameters:
 
 (1) Callback function `inning` that you wrote above
 (2) A number of innings
@@ -131,50 +128,37 @@ and returns the score at each pont in the game, like so:
 Final Score: 6 - 10 */
 
 function scoreboard(numOfPoints, numOfInnings) {
-
   let homeScore = 0;
   let awayScore = 0;
 
-    for (var i = 1; i <= numOfInnings; i++) {
+  for (var i = 1; i <= numOfInnings; i++) {
     let inning = i;
     if (inning === 1) {
+      homeScore += Math.round(Math.random(numOfPoints));
+      awayScore += Math.round(Math.random(numOfPoints));
 
-    homeScore += Math.round(Math.random(numOfPoints));
-    awayScore += Math.round(Math.random(numOfPoints));
-
-    console.log(`${inning}st inning: ${homeScore} - ${awayScore}`);
-
+      console.log(`${inning}st inning: ${homeScore} - ${awayScore}`);
     } else if (inning === 2) {
-
       homeScore += Math.round(Math.random(numOfPoints));
       awayScore += Math.round(Math.random(numOfPoints));
 
       console.log(`${inning}nd inning: ${homeScore} - ${awayScore}`);
-
     } else if (inning === 3) {
-
       homeScore += Math.round(Math.random(numOfPoints));
       awayScore += Math.round(Math.random(numOfPoints));
 
       console.log(`${inning}rd inning: ${homeScore} - ${awayScore}`);
-
-
     } else if (inning > 3 && inning !== numOfInnings) {
-
       homeScore += Math.round(Math.random(numOfPoints));
       awayScore += Math.round(Math.random(numOfPoints));
 
       console.log(`${inning}th inning: ${homeScore} - ${awayScore}`);
-
     } else if (inning === numOfInnings) {
-
       homeScore += Math.round(Math.random(numOfPoints));
       awayScore += Math.round(Math.random(numOfPoints));
 
       console.log(`${inning}th inning: ${homeScore} - ${awayScore}`);
       console.log(`Final Score: ${homeScore} - ${awayScore}`);
-
-
     }
   }
 }
